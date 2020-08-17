@@ -1,40 +1,25 @@
-import React from 'react';
+import React, { useEffect } from "react";
+import alanBtn from "@alan-ai/alan-sdk-web";
 
-import { Cards, CountryPicker, Charts } from './components';
-import { fetchData } from './api/';
-import styles from './App.module.css';
+const alankey =
+  "eb323e171d25e8fbcb18760bcecfb3942e956eca572e1d8b807a3e2338fdd0dc/stage";
+const App = () => {
+  useEffect(() => {
+    alanBtn({
+      key: alankey,
+      onCommand: ({ command, articles }) => {
+        if (command === "newHeadlines") {
+          console.log(articles);
+        }
+      },
+    });
+  }, []);
 
-import image from './images/image.png';
-class App extends React.Component {
-  state = {
-    data: {},
-    country: '',
-  }
-
-  async componentDidMount() {
-    const data = await fetchData();
-
-    this.setState({ data });
-  }
-
-  handleCountryChange = async (country) => {
-    const data = await fetchData(country);
-
-    this.setState({ data, country: country });
-  }
-
-  render() {
-    const { data, country } = this.state;
-
-    return (
-      <div className={styles.container}>
-        <img className={styles.image} src={image} alt="COVID-19" />
-        <Cards data={data} />
-        <CountryPicker handleCountryChange={this.handleCountryChange} />
-        <Charts data={data} country={country} /> 
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <h1>News App</h1>
+    </div>
+  );
+};
 
 export default App;
