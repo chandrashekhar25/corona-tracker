@@ -1,9 +1,13 @@
 import React from 'react';
 
-const NewsCards = () => {
+import NewsCard from '../NewsCard/NewsCard';
+
+const NewsCards = ({ articles }) => {
   return (
     <div>
-      <h1></h1>
+      {articles.map((article, i) => (
+        <NewsCard />
+      ))}
     </div>
   );
 };
