@@ -9,18 +9,20 @@ import {
   Typography,
   CardActions,
 } from '@material-ui/core';
-
+import useStyles from './styles.js';
 const NewsCard = ({
   article: { description, publishedAt, source, title, url, urlToImage },
   i,
 }) => {
+  const classes = useStyles();
   return (
-    <Card>
-      <CardActionArea>
+    <Card className={classes.card}>
+      <CardActionArea href={url} target='_blank'>
         <CardMedia
+          className={classes.media}
           image={urlToImage || 'https://images.app.goo.gl/Bk6hvThkR9XP7Afw7'}
         />
-        <div>
+        <div className={classes.details}>
           <Typography variant='body2' color='textSecondary' component='h2'>
             {new Date(publishedAt).toDateString()}
           </Typography>
@@ -28,7 +30,7 @@ const NewsCard = ({
             {source.name}
           </Typography>
         </div>
-        <Typography gutterBottom variant='h5'>
+        <Typography className={classes.title} gutterBottom variant='h5'>
           {title}
         </Typography>
         <CardContent>
@@ -37,7 +39,7 @@ const NewsCard = ({
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <CardActions className={classes.CardActions}>
         <Button size='small' color='primary'>
           Learn More
         </Button>
